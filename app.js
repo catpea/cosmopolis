@@ -1,3 +1,5 @@
+var PouchDB = require('pouchdb');
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -7,11 +9,31 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var viewRouter = require('./routes/view');
+var editRouter = require('./routes/edit');
+
+
 var app = express();
+
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+
+var pouchdb = {};
+pouchdb.pages = new PouchDB('./data/pouchdb/pages');
+var pouchDatabases = function (req, res, next) {
+  req.pouchdb = pouchdb;
+  next()
+}
+app.use(pouchDatabases);
+
+
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -20,6 +42,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+
+app.use('/view', viewRouter);
+app.use('/edit', editRouter);
+
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

@@ -1,7 +1,7 @@
 {
   "name": "cosmopolis",
   "version": "1.0.1",
-  "description": "HTML Game about city managment.",
+  "description": "HTML Game about city management.",
   "main": "index.js",
   "scripts": {
     "save": "git add .; git commit -m 'New Release'; git push; npm version patch; npm publish; git push;",
@@ -13,7 +13,8 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "pouchdb": "^7.2.2"
   },
   "repository": {
     "type": "git",
