@@ -1,6 +1,6 @@
 {
   "name": "cosmopolis",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "HTML Game about city management.",
   "main": "index.js",
   "scripts": {
