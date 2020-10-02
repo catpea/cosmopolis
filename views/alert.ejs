@@ -1,2 +1,35 @@
-<h1><%= message %></h1>
-<div><%- html %></div>
+<!doctype html>
+<html lang="en">
+<head>
+<% include common/head %>
+</head>
+<body class="bg-dark text-light">
+  <% include common/menu %>
+  <main class="container">
+    <div class="row">
+
+    <div class="col">
+
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading"><%= title %></h4>
+      <p><%= message %></p>
+      <hr>
+      <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+    </div>
+
+
+    <%- html %>
+
+    <% buttons.forEach(function(button){ %>
+       <ul class="list-unstyled">
+         <li><a href="<%= button.url %>" class="btn btn-primary btn-lg"><%= button.text %></a></li>
+       </ul>
+    <% }); %>
+
+  </div>
+
+    </div>
+  </main><!-- /.container -->
+  <% include common/foot %>
+</body>
+</html>
