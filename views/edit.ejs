@@ -3,13 +3,83 @@
 <head>
 <% include common/head %>
 </head>
-<body>
+<body class="bg-dark text-light">
   <% include common/menu %>
   <main class="container">
+<!--
     <div class="starter-template text-center py-5 px-3">
       <h1><%= title %></h1>
       <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-    </div>
+    </div> -->
+
+    <div class="row">
+      <div class="col">
+
+        <div class="card bg-dark text-light shadow mb-2">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+
+            <div class="dropdown float-right">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-expanded="false">
+                Settings
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item active" href="#">Unfollow Mbole Ebunike</a></li>
+                <li><a class="dropdown-item" href="#">Mute</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Separated link</a></li>
+              </ul>
+            </div>
+
+            <h5 class="card-title">Question!</h5>
+            <p class="card-text">Mbole Ebunike, mayor of Night City, wants to know if you still believe in revenge and punishment.</p>
+
+
+
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="small bg-dark text-light list-group-item">No revenge, no punishment = no prisons, just hospitals, schools and free housing.</li>
+            <li class="small bg-dark text-light list-group-item">Let us take better care of each other, all of us or none.</li>
+            <li class="small bg-dark text-light list-group-item">There are no Criminals, no Felons, only Humans.</li>
+          </ul>
+
+          <div class="card-body">
+            <a href="#" class="btn btn-success shadow-sm">Yes, I believe in revenge and punishment.</a>
+            <a href="#" class="btn btn-warning">No, I do not.</a>
+          </div>
+
+
+
+          <div class="card-body">
+            <a href="#" class="btn btn-primary">Like <svg class="bi" width="16" height="16" fill="currentColor"> <use xlink:href="/images/bootstrap-icons.svg#hand-thumbs-up"/></svg></a>
+            <a href="#" class="btn btn-primary">Dislike <svg class="bi" width="16" height="16" fill="currentColor"> <use xlink:href="/images/bootstrap-icons.svg#hand-thumbs-down"/></svg></a>
+            <a href="#" class="btn btn-primary">Share <svg class="bi" width="16" height="16" fill="currentColor"> <use xlink:href="/images/bootstrap-icons.svg#share-fill"/></svg></a>
+          </div>
+
+
+
+        </div>
+        </div>
+        </div>
+
+
+    <!-- <div class="row">
+      <div class="col">
+
+        <div class="py-2">
+        <a class="btn btn-primary" href="#" role="button">Data Model</a>
+        <a class="btn btn-secondary" href="#" role="button">View Template</a>
+        <a class="btn btn-secondary" href="#" role="button">Action Controller</a>
+        <a class="btn btn-warning float-right" href="#" role="button">Save</a>
+        </div>
+
+        <textarea class="w-100" rows="20"></textarea>
+
+
+      </div>
+    </div> -->
+
   </main><!-- /.container -->
   <% include common/foot %>
 </body>
