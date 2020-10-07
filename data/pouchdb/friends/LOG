@@ -1,5 +1,5 @@
-2020/10/03-19:11:47.688436 7fdbaffff700 Recovering log #6
-2020/10/03-19:11:47.688513 7fdbaffff700 Level-0 table #8: started
-2020/10/03-19:11:47.772639 7fdbaffff700 Level-0 table #8: 237 bytes OK
-2020/10/03-19:11:47.973632 7fdbaffff700 Delete type=0 #6
-2020/10/03-19:11:47.973670 7fdbaffff700 Delete type=3 #4
+2020/10/06-18:01:24.388658 7f33dd7fa700 Recovering log #418
+2020/10/06-18:01:24.388684 7f33dd7fa700 Level-0 table #420: started
+2020/10/06-18:01:24.461300 7f33dd7fa700 Level-0 table #420: 237 bytes OK
+2020/10/06-18:01:24.679260 7f33dd7fa700 Delete type=0 #418
+2020/10/06-18:01:24.679311 7f33dd7fa700 Delete type=3 #416
