@@ -1,12 +1,17 @@
 #!/usr/bin/env -S node --trace-warnings
 
+import App from '../app.mjs';
+import debug from 'debug';
+import http from 'http';
+
+async function main(){
 /**
  * Module dependencies.
  */
 
-import app from '../app.mjs';
-import debug from 'debug';
-import http from 'http';
+
+
+const app = await App();
 
 debug('cosmopolis:server');
 
@@ -90,3 +95,8 @@ function onListening() {
     : `port ${addr.port}`;
   debug(`Listening on ${bind}`);
 }
+
+
+}
+
+main();

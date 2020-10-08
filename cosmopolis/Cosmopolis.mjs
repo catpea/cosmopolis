@@ -30,6 +30,7 @@ export default class Cosmopolis {
     };
 
 
+    this.db = new Database();
     this.users = new Users({development: this.development});
     this.friends = new Friends();
 
@@ -40,6 +41,8 @@ export default class Cosmopolis {
     if(!req.session.account) return actions.redirectToLoginPage({res});
   }
 
+
+
   Logout(){
     const {req, res, next, actions} = this;
     actions.userLogout({res});
@@ -48,9 +51,6 @@ export default class Cosmopolis {
 
   async SignIn({account, password}){
     const {state} = await this.users.authenticate({account, password});
-    console.log(state, this.actions[state]);
-    console.log( Object.keys(this.actions ) );
-    console.log('dddddddddd', this.actions[state]);
     this.actions[state]({account});
   }
 
@@ -66,19 +66,5 @@ export default class Cosmopolis {
 
 
 
-  async SignUp3(){
-    const {req, res, next, actions} = this;
-    const signup = await this.users.add({ account, password });
 
-    if(signup.success){
-      actions.redirectToRootPage({res});
-    }else if(signup.taken){
-      actions.accountTaken({res});
-    }else if(signup.error){
-      actions.unknownError({next, ...verification.error.number})
-    }else{
-      actions.redirectToSignupPage({res});
-    }
-
-  }
 }
