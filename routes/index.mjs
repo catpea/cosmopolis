@@ -3,17 +3,10 @@ const router = express.Router();
 
 router.get('/', async function(req, res, next) {
 
-
-
-  await req.Cosmopolis
-  .Help();
-
-  await req.Cosmopolis
-  .RequireLogin();
+  if(!req.session.username) return res.redirect('/account/login');
 
   const context = {
     title: 'Cosmopolis Reference Implementation',
-    account: req.session.account,
   };
 
   res.render('index', context);

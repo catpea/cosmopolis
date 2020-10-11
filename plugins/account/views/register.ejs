@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<% include common/head %>
+</head>
+<body class="bg-dark text-light">
+
+  <main class="container">
+
+    <div class="row">
+      <div class="col-12 offset-sm-2 offset-md-3 offset-lg-4 offset-xl-4 col-sm-8 col-md-6 col-lg-4 col-xl-4">
+
+        <form action="/account/register" method="POST" class="mb-5">
+            <div class="text-center mb-4">
+              <!-- <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+              <h1 class="h3 mb-3 font-weight-normal"><%= title %></h1>
+              <p><%= message %></p>
+            </div>
+
+            <div class="form-label-group  mb-2">
+              <label for="inputUsername">Username</label>
+              <input name="username" type="text" id="inputUsername" class="form-control" placeholder="Username" required="true" autofocus="true">
+            </div>
+
+
+            <div class="form-label-group  mb-2">
+              <label for="inputPassword">Password</label>
+              <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="true">
+            </div>
+
+
+            <div class="form-label-group  mb-5">
+              <label for="inputEmail">Email address</label>
+              <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address">
+            </div>
+
+            <div class="row mb-5">
+              <div class="offset-6 col-6">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="alert alert-info" role="alert">
+            Already have an account with us? Use the <a href="/account/login" class="alert-link">Login</a> page.
+          </div>
+
+      </div>
+
+    </div>
+
+
+  </main><!-- /.container -->
+  <% include common/foot %>
+</body>
+</html>

@@ -2,7 +2,7 @@ import Users from './Cosmopolis/Users.mjs';
 import Friends from './Cosmopolis/Friends.mjs';
 export default class Cosmopolis {
 
-  constructor({req, res, next, development}){
+  constructor({req, res, next, models, development}){
     this.development = development;
     this.req = req;
     this.res = res;
@@ -30,7 +30,7 @@ export default class Cosmopolis {
     };
 
 
-    this.db = new Database();
+    this.models = models;
     this.users = new Users({development: this.development});
     this.friends = new Friends();
 

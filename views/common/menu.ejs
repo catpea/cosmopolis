@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top shadow">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/view/cosmopolis">Cosmopolis <sup>&beta;</sup></a>
+    <a class="navbar-brand" href="/">Cosmopolis <sup>&beta;</sup></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,13 +8,20 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto mb-2 mb-md-0">
 
+        <li class="nav-item">
+          <a class="nav-link" href="/group">Groups</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">Profile</a>
+        </li>
+<!--
+
         <li class="nav-item active">
           <a class="nav-link" aria-current="page" href="/view/home">Home</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/view/profile">Profile</a>
-        </li>
+
 
         <li class="nav-item">
           <a class="nav-link" href="/view/friends">Friends</a>
@@ -28,6 +35,8 @@
           <a class="nav-link" href="/view/friends">Wall</a>
         </li>
 
+
+
         <li class="nav-item">
           <a class="nav-link" href="/view/friends">Timeline</a>
         </li>
@@ -39,10 +48,10 @@
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li>
+        </li> -->
 
         <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout <span class="text-warning"><%= account %></span></a>
+          <a class="nav-link" href="/account/logout">Logout <span class="text-warning"><%= account %></span></a>
         </li>
 
 
