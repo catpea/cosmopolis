@@ -31,6 +31,7 @@ import Cosmopolis from './cosmopolis/Cosmopolis.mjs';
 import indexRouter from './routes/index.mjs';
 
 import accountPlugin from './plugins/account/index.mjs';
+import schoolPlugin from './plugins/school/index.mjs';
 import groupPlugin from './plugins/group/index.mjs';
 
 import Models from './models/index.mjs';
@@ -138,8 +139,9 @@ async function main(){
 
 
 
-  groupPlugin(app);
   accountPlugin(app);
+  schoolPlugin(app);
+  groupPlugin(app);
 
   //
   // app.use('/view', viewRouter);

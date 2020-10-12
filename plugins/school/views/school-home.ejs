@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<% include common/head %>
+</head>
+<body class="bg-dark text-light">
+  <% include common/menu %>
+  <main class="container">
+
+     <div class="card bg-dark text-light shadow mb-4">
+      <h5 class="card-header"><%= school.name %></h5>
+      <div class="card-body">
+        <p class="lead"><%= school.description %></p>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><%= school.name %> Enrollment</h5>
+        <% if(school.member){ %>
+          <div class="alert alert-info" role="alert">
+            You are a member of <%= school.name %>.
+          </div>
+          <form action="/school/leave" method="POST">
+            <input name="id" type="hidden" value="<%= school.id %>">
+            <button type="submit" class="btn btn-danger mb-3">Leave <%= school.name %></button>
+          </form>
+        <% } else { %>
+          <form action="/school/join" method="POST">
+            <input name="id" type="hidden" value="<%= school.id %>">
+            <button type="submit" class="btn btn-primary mb-3">Join <%= school.name %></button>
+          </form>
+        <% } %>
+      </div>
+
+
+      <div class="card-footer text-muted">
+        <%= school.name %> Library contains <%= school.books.length %> book<%= school.books.length==1?'':'s' %>.
+      </div>
+    </div>
+
+
+
+    <% school.books.forEach(function(book){ %>
+      <div class="card bg-dark text-light shadow mb-4">
+        <h5 class="card-header"><%= book.name %></h5>
+        <div class="card-body">
+          <p class="small"><%= book.description %></p>
+        </div>
+        <div class="card-body border-top border-secondary text-right">
+          <a href="/book/<%= book.id %>" class="btn btn-secondary">Open <%= book.name %></a>
+        </div>
+      </div>
+    <% }); %>
+
+  </main><!-- /.container -->
+  <% include common/foot %>
+</body>
+</html>

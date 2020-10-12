@@ -9,20 +9,7 @@ const browser = async function(req, res, next) {
 
   if(!req.session.username) return res.redirect('/account/login');
 
-
-  // const US = await req.Cosmopolis.models.Group.create({ name: "United States" });
-  // await US.reload();
-
-  //Model.findAll({ name: "United States" });
-  // const us = await req.Cosmopolis.models.Group.findOne({ where: { name: "United States" } });
-  // const mv = await req.Cosmopolis.models.Group.findOne({ where: { name: "Multiverse" },   });
-  //
-  //
-  // console.log(us);
-  // console.log(us.description);
-  //
-  // const links =  await mv.getLinks();
-  // console.log(links);
+ 
 
 
   const {Group, User} = req.app.get('models');

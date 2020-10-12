@@ -9,6 +9,13 @@ const sequelize = new Sequelize('postgres://cosmopolis:9a917927-f88e-4819-9abb-9
 
 
 
+    // To create a One-To-One relationship, the hasOne and belongsTo associations are used together;
+    // To create a One-To-Many relationship, the hasMany and belongsTo associations are used together;
+    // To create a Many-To-Many relationship, two belongsToMany calls are used together.
+
+    // select 'drop table if exists "' || tablename || '" cascade;'
+    //   from pg_tables
+    //  where schemaname = 'public';
 
     // fooInstance.getBars()
     // fooInstance.countBars()
@@ -26,7 +33,11 @@ async function main(){
 
 
 
-  class User extends Model {}
+  class User extends Model {
+    getFullname() {
+      return [this.firstName, this.middleName, this.lastName].filter(s=>s).join(' ');
+    }
+  }
 
 
   User.init({
@@ -61,10 +72,109 @@ async function main(){
     type: DataTypes.STRING,
     kind: DataTypes.STRING,
 
+    ordering: DataTypes.STRING,
+
   }, {
     sequelize,
     paranoid: true,
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+      class School extends Model {}
+      School.init({
+
+        name: DataTypes.STRING,
+        author: DataTypes.STRING,
+        description: DataTypes.STRING,
+        website: DataTypes.STRING,
+
+      }, {
+        sequelize,
+        paranoid: true,
+      });
+
+
+
+      class Book extends Model {}
+      Book.init({
+
+        title: DataTypes.STRING,
+        author: DataTypes.STRING,
+        description: DataTypes.STRING,
+
+      }, {
+        sequelize,
+        paranoid: true,
+      });
+
+      class Chapter extends Model {}
+      Chapter.init({
+
+        title: DataTypes.STRING,
+        author: DataTypes.STRING,
+        description: DataTypes.STRING,
+        ordering: DataTypes.STRING,
+
+      }, {
+        sequelize,
+        paranoid: true,
+      });
+
+      class Section extends Model {}
+      Section.init({
+
+        title: DataTypes.STRING,
+        author: DataTypes.STRING,
+        description: DataTypes.STRING,
+        ordering: DataTypes.STRING,
+
+        text: DataTypes.TEXT,
+
+      }, {
+        sequelize,
+        paranoid: true,
+      });
+
+
+      //
+      // To create a One-To-One relationship, the hasOne and belongsTo associations are used together;
+      // To create a One-To-Many relationship, the hasMany and belongsTo associations are used together;
+      // To create a Many-To-Many relationship, two belongsToMany calls are used together.
+
+      // Education
+      await School.hasMany(Book);
+      await Book.hasMany(Chapter);
+      await Chapter.hasMany(Section);
+
+      await Book.belongsTo(School);
+      await Chapter.belongsTo(Book);
+      await Section.belongsTo(Chapter);
+
+
+
+      // World Structure
+      await User.belongsToMany(School, { through: 'SchoolUserJunction'});
+      await School.belongsToMany(User, { through: 'SchoolUserJunction'});
+
+      await User.belongsToMany(Group, { through: 'GroupUserJunction'});
+      await Group.belongsToMany(User, { through: 'GroupUserJunction'});
+
+      await Group.belongsToMany(Group, { as:'Links', through: 'GroupGroupJunction'});
+
+
+      // await sequelize.drop();
+      await sequelize.sync({ force: true }); // force recreates the table every time
 
   // User.belongsToMany(Group, { through: 'Structure'});
   //
@@ -72,12 +182,6 @@ async function main(){
 
 
 
-
-
-  await User.belongsToMany(Group, { through: 'Membership'});
-  await Group.belongsToMany(User, { through: 'Membership'});
-
-  await Group.belongsToMany(Group, { as:'Links', through: 'Structure'});
 
 
 
@@ -163,11 +267,20 @@ async function main(){
 
   });
 
+  for(let i = 0; i<134; i++){
+
+    const CU = await School.create({
+      name: "Cosmopolis University #"+i,
+      author: "Administrator",
+      description: "Teaching how to get around the system from year one.",
+      website: "http://",
+    });
+
+  }
 
 
-
-  await sequelize.sync({ force:  0 }); // force recreates the table every time
-  // await sequelize.sync(); // force recreates the table every time
+  // await sequelize.sync({ force: true }); // force recreates the table every time
+  await sequelize.sync(); // force recreates the table every time
 
   // const jane = await User.create({
   //   username: 'janedoe',
@@ -185,7 +298,10 @@ async function main(){
   // jane.createGroup()
   // console.log(jane.toJSON());
 
-  return {Model, User, Group};
+  return {
+    User, Group,
+    School, Book, Chapter, Section
+  };
 
 }
 

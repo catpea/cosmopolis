@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<% include common/head %>
+</head>
+<body class="bg-dark text-light">
+  <% include common/menu %>
+
+  <main class="container">
+    <div class="row row-cols-4 row-cols-md-2 row-cols-lg-1 g-4">
+    <% schools.forEach(function(school){ %>
+      <div class="col">
+        <div class="card bg-dark text-light shadow mb-4">
+          <h5 class="card-header"><%= school.name %></h5>
+          <div class="card-body">
+            <p class="small"><%= school.description %></p>
+          </div>
+          <div class="card-body border-top border-secondary text-right">
+            <a href="/school/<%= school.id %>" class="btn btn-secondary">Open <%= school.name %></a>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+    </div>
+  </main><!-- /.container -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="/school?size=<%= paginate.size %>&page=<%= paginate.previous %>">Previous</a></li>
+            <% paginate.leaps.forEach(function(leap){ %>
+              <% if(leap.active){ %>
+                <li class="page-item active"><a class="page-link" href="/school?size=<%= leap.size %>&page=<%= leap.number %>"><%= leap.number+1 %></a></li>
+              <% }else{ %>
+                <li class="page-item"><a class="page-link" href="/school?size=<%= leap.size %>&page=<%= leap.number %>"><%= leap.number+1 %></a></li>
+              <% } %>
+            <% }); %>
+            <li class="page-item"><a class="page-link" href="/school?size=<%= paginate.size %>&page=<%= paginate.next %>">Next</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <% include common/foot %>
+</body>
+</html>
