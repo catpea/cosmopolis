@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<% include common/head %>
+</head>
+<body class="bg-dark text-light">
+  <% include common/menu %>
+  <main class="container">
+
+
+
+
+
+
+
+        <div class="row">
+
+
+        <div class="col col-md-12">
+              <div class="card bg-dark text-light shadow mb-4">
+                <h5 class="card-header"><%= location.name %></h5>
+
+                <div class="card-header">
+                   <ul class="nav nav-pills card-header-pills">
+
+                     <li class="nav-item">
+                       <a class="nav-link" href="/location/<%= location.id %>">Browser</a>
+                     </li>
+
+                     <li class="nav-item">
+                       <a class="nav-link active" href="/location/<%= location.id %>/toolbox">Toolbox</a>
+                     </li>
+
+                   </ul>
+                 </div>
+
+                <div class="card-body">
+                  <p class="lead"><%= location.description %></p>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><%= location.name %> Membership</h5>
+                  <% if(location.member){ %>
+                    <div class="alert alert-info" role="alert">
+                      You are a member of <%= location.name %>.
+                    </div>
+                    <form action="/location/leave" method="POST">
+                      <input name="id" type="hidden" value="<%= location.id %>">
+                      <button type="submit" class="btn btn-danger mb-3">Leave <%= location.name %></button>
+                    </form>
+                  <% } else { %>
+                    <form action="/location/join" method="POST">
+                      <input name="id" type="hidden" value="<%= location.id %>">
+                      <button type="submit" class="btn btn-primary mb-3">Join <%= location.name %></button>
+                    </form>
+                  <% } %>
+
+                  <form action="/location/create" method="POST">
+                    <input name="id" type="hidden" value="<%= location.id %>">
+                    <button type="submit" class="btn btn-primary mb-3">Create New</button>
+                  </form>
+
+                </div>
+                <% if(!location.root){ %>
+                  <div class="card-body">
+                    <button class="btn btn-primary mb-3" onclick="history.back()" type="button">Back</button>
+                  </div>
+                <% } %>
+                <div class="card-footer text-muted">
+                  <%= location.name %> contains <%= location.links.length %> other location<%= location.links.length==1?'':'s' %>.
+                </div>
+              </div>
+
+        </div>
+
+        </div>
+
+
+
+
+
+
+    <div class="row">
+
+
+      <div class="col col-md-6">
+        <div class="card bg-dark text-light shadow mb-4">
+          <h5 class="card-header">Bookmarks</h5>
+          <div class="card-body">
+            <p class="small"><%= location.description %></p>
+          </div>
+          <div class="card-body border-top border-secondary text-right">
+            <a href="/location/<%= location.id %>" class="btn btn-secondary">Inspect <%= location.name %></a>
+          </div>
+        </div>
+       </div>
+
+      <div class="col col-md-6">
+        <div class="card bg-dark text-light shadow mb-4">
+          <h5 class="card-header">Most Visited & Recent</h5>
+          <div class="card-body">
+            <p class="small"><%= location.description %></p>
+          </div>
+          <div class="card-body border-top border-secondary text-right">
+            <a href="/location/<%= location.id %>" class="btn btn-secondary">Inspect <%= location.name %></a>
+          </div>
+        </div>
+       </div>
+
+    </div>
+
+    <!-- <div class="row row-cols-2 row-cols-md-4 g-4">
+      <% location.links.forEach(function(location){ %>
+        <div class="col">
+        <div class="card bg-dark text-light shadow mb-4">
+          <h5 class="card-header text-info"><%= location.name %></h5>
+          <div class="card-body">
+            <p class="small"><%= location.description %></p>
+          </div>
+          <div class="card-body border-top border-secondary text-right">
+            <a href="/location/<%= location.id %>" class="btn btn-secondary">Inspect <%= location.name %></a>
+          </div>
+        </div>
+      </div>
+      <% }); %>
+    </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </main><!-- /.container -->
+  <% include common/foot %>
+</body>
+</html>

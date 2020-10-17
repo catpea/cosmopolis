@@ -82,6 +82,72 @@ async function main(){
 
 
 
+  class Location extends Model {}
+  Location.init({
+
+    creator: DataTypes.STRING,
+    root: DataTypes.BOOLEAN,
+
+    name: DataTypes.STRING,
+    description: DataTypes.STRING,
+    website: DataTypes.STRING,
+    updated: DataTypes.DATE,
+
+    type: DataTypes.STRING,
+    kind: DataTypes.STRING,
+
+    ordering: DataTypes.STRING,
+
+  }, {
+    sequelize,
+    paranoid: true,
+  });
+
+
+  class Thing extends Model {}
+  Thing.init({
+
+    creator: DataTypes.STRING,
+    root: DataTypes.BOOLEAN,
+
+    name: DataTypes.STRING,
+    description: DataTypes.STRING,
+    website: DataTypes.STRING,
+    updated: DataTypes.DATE,
+
+    type: DataTypes.STRING,
+    kind: DataTypes.STRING,
+
+    ordering: DataTypes.STRING,
+
+  }, {
+    sequelize,
+    paranoid: true,
+  });
+  class Action extends Model {}
+  Action.init({
+
+    creator: DataTypes.STRING,
+    root: DataTypes.BOOLEAN,
+
+    name: DataTypes.STRING,
+    description: DataTypes.STRING,
+    website: DataTypes.STRING,
+    updated: DataTypes.DATE,
+
+    type: DataTypes.STRING,
+    kind: DataTypes.STRING,
+
+    ordering: DataTypes.STRING,
+
+  }, {
+    sequelize,
+    paranoid: true,
+  });
+
+
+
+
 
 
 
@@ -154,12 +220,14 @@ async function main(){
 
       // Education
       await School.hasMany(Book);
-      await Book.hasMany(Chapter);
-      await Chapter.hasMany(Section);
-
       await Book.belongsTo(School);
+
+      await Book.hasMany(Chapter);
       await Chapter.belongsTo(Book);
+
+      await Chapter.hasMany(Section);
       await Section.belongsTo(Chapter);
+
 
 
 
@@ -167,89 +235,149 @@ async function main(){
       await User.belongsToMany(School, { through: 'SchoolUserJunction'});
       await School.belongsToMany(User, { through: 'SchoolUserJunction'});
 
+
       await User.belongsToMany(Group, { through: 'GroupUserJunction'});
       await Group.belongsToMany(User, { through: 'GroupUserJunction'});
 
       await Group.belongsToMany(Group, { as:'Links', through: 'GroupGroupJunction'});
 
+      await Location.belongsToMany(Location, { as:'Links', through: 'LocationLocationJunction'});
+
+      await Thing.belongsToMany(Location, { as:'Locations', through: 'ThingLocationJunction'});
+      await Location.belongsToMany(Thing, { as:'Things', through: 'ThingLocationJunction'});
+
+      await Thing.hasMany(Action);
+      await Action.belongsTo(Thing);
+
+
+
+
+
 
       // await sequelize.drop();
       await sequelize.sync({ force: true }); // force recreates the table every time
 
-  // User.belongsToMany(Group, { through: 'Structure'});
-  //
-  // Group.belongsToMany(Group, { as:'link', through: 'Structure'});
 
 
 
 
 
+    const omniverse = await Location.create({
+      creator: 'Root',
 
-  const multiverse = await Group.create({
-    creator: 'Root',
-    root: true,
+      name: 'Omniverse',
+      description: 'Omniverse contains everything in the system.',
+      website: '',
+      updated: new Date(),
 
-    name: 'Multiverse',
-    description: 'Root of all groups in the system.',
-    website: '',
-    updated: new Date(),
+      type: "Omniverse",
+      kind: "Structure",
+    });
 
-    type: "Multiverse",
-    kind: "Structure",
-  });
 
-  const universe = await Group.create({
-    creator: 'Root',
+    const multiverse = await Location.create({
+      creator: 'Root',
 
-    name: 'Primary Universe',
-    description: 'Primary Universe.',
-    website: '',
-    updated: new Date(),
+      name: 'Multiverse',
+      description: 'Root of all groups in the system.',
+      website: '',
+      updated: new Date(),
 
-    type: "Universe",
-    kind: "Structure",
-  });
+      type: "Multiverse",
+      kind: "Structure",
+    });
 
-  const earth = await Group.create({
-    creator: 'Root',
+    const universe616 = await Location.create({
+      creator: 'Root',
 
-    name: 'Earth',
-    description: 'Earth',
-    website: '',
-    updated: new Date(),
+      name: 'Universe 616',
+      description: 'Primary Universe.',
+      website: '',
+      updated: new Date(),
 
-    type: "Universe",
-    kind: "Structure",
-  });
+      type: "Universe",
+      kind: "Structure",
+    });
 
-  const unitedStates = await Group.create({
-    creator: 'Root',
+    const universe65 = await Location.create({
+      creator: 'Root',
 
-    name: 'United States',
-    description: 'United States',
-    website: '',
-    updated: new Date(),
+      name: 'Universe 65',
+      description: 'Secondary Universe.',
+      website: '',
+      updated: new Date(),
 
-    type: "Universe",
-    kind: "Structure",
-  });
-  const sovietUnion = await Group.create({
-    creator: 'Root',
+      type: "Universe",
+      kind: "Structure",
+    });
 
-    name: 'Soviet Union',
-    description: `Federal socialist state in Northern Eurasia. Nominally a union of multiple national Soviet republics, in practice highly centralized. The Soviet Union had its roots in the October Revolution of 1917.`,
-    website: '',
-    updated: new Date(),
+    const earth = await Location.create({
+      creator: 'Root',
+      root: true,
 
-    type: "Universe",
-    kind: "Structure",
-  });
+      name: 'Earth',
+      description: 'Earth',
+      website: '',
+      updated: new Date(),
 
-  await multiverse.addLink(universe);
-  await universe.addLink(earth);
-  await earth.addLink(unitedStates);
-  await earth.addLink(sovietUnion);
+      type: "Universe",
+      kind: "Structure",
+    });
 
+    const unitedStates = await Location.create({
+      creator: 'Root',
+
+      name: 'United States',
+      description: 'United States',
+      website: '',
+      updated: new Date(),
+
+      type: "Universe",
+      kind: "Structure",
+    });
+    const sovietUnion = await Location.create({
+      creator: 'Root',
+
+      name: 'Soviet Union',
+      description: `Federal socialist state in Northern Eurasia. Nominally a union of multiple national Soviet republics, in practice highly centralized. The Soviet Union had its roots in the October Revolution of 1917.`,
+      website: '',
+      updated: new Date(),
+
+      type: "Universe",
+      kind: "Structure",
+    });
+
+    await multiverse.addLink(universe616);
+    await multiverse.addLink(universe65);
+    await universe616.addLink(earth);
+    await earth.addLink(unitedStates);
+    await earth.addLink(sovietUnion);
+
+
+    const udhr = await Thing.create({
+      creator: 'Root',
+
+      name: 'Universal Declaration of Human Rights',
+      description: `The Universal Declaration of Human Rights is an international document adopted by the United Nations General Assembly that enshrines the rights and freedoms of all human beings.`,
+      website: '',
+      updated: new Date(),
+
+      type: "Book",
+      kind: "Declaration",
+    });
+    const read = await Action.create({
+      creator: 'Root',
+
+      name: 'Read',
+      description: `Read`,
+      website: '',
+      updated: new Date(),
+
+      type: "Action",
+      kind: "Inspection",
+    });
+    await udhr.addAction(read);
+    await earth.addThing(udhr);
 
 
   const alice = await User.create({
@@ -267,7 +395,7 @@ async function main(){
 
   });
 
-  for(let i = 0; i<134; i++){
+  for(let i = 0; i<1; i++){
 
     const CU = await School.create({
       name: "Cosmopolis University #"+i,
@@ -300,7 +428,8 @@ async function main(){
 
   return {
     User, Group,
-    School, Book, Chapter, Section
+    School, Book, Chapter, Section,
+    Location
   };
 
 }

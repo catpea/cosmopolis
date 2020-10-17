@@ -83,6 +83,7 @@ router.get('/', async function(req, res) {
     account: req.session.account,
     schools: schools.map(({id, name, description})=>({id, name, description})),
     paginate:{
+      pages,
       leaps,
       previous,
       next,

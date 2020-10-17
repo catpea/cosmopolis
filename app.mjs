@@ -31,8 +31,10 @@ import Cosmopolis from './cosmopolis/Cosmopolis.mjs';
 import indexRouter from './routes/index.mjs';
 
 import accountPlugin from './plugins/account/index.mjs';
-import schoolPlugin from './plugins/school/index.mjs';
-import groupPlugin from './plugins/group/index.mjs';
+// import schoolPlugin from './plugins/school/index.mjs';
+// import groupPlugin from './plugins/group/index.mjs';
+
+import locationPlugin from './plugins/location/index.mjs';
 
 import Models from './models/index.mjs';
 
@@ -54,7 +56,7 @@ async function main(){
 
 
   const app = express();
-
+  app.locals.navigation = [];
 
 
 
@@ -94,7 +96,10 @@ async function main(){
   // view engine setup
   app.set('views', [path.join(__dirname, 'views')]);
   app.set('view engine', 'ejs');
-
+  app.set('view options', {
+      open: '<?',
+      close: '?>'
+  });
 
 
 
@@ -107,10 +112,7 @@ async function main(){
   }));
 
 
-  app.use(function(req, res, next) {
-    res.locals.account = req.session.username?req.session.username:'Anonymous';
-    next()
-  })
+
 
 
   const models =  await Models();
@@ -134,20 +136,16 @@ async function main(){
 
 
 
-  app.use('/', indexRouter);
-
-
-
+  app.use(function(req, res, next) {
+    res.locals.account = req.session.username?req.session.username:'Anonymous';
+    res.locals.account = "XXX";
+    next()
+  })
 
   accountPlugin(app);
-  schoolPlugin(app);
-  groupPlugin(app);
+  locationPlugin(app);
 
-  //
-  // app.use('/view', viewRouter);
-  // app.use('/edit', editRouter);
-  //
-  // app.use('/users', usersRouter);
+  app.use('/', indexRouter);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

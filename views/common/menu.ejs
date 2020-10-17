@@ -8,7 +8,13 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto mb-2 mb-md-0">
 
-        <li class="nav-item">
+        <% navigation.forEach(function(element){ %>
+          <li class="nav-item">
+            <a class="nav-link" href="/<%= element.name %>"><%= element.title %></a>
+          </li>
+        <% }); %>
+
+        <!-- <li class="nav-item">
           <a class="nav-link" href="/school">Schools</a>
         </li>
 
@@ -18,7 +24,7 @@
 
         <li class="nav-item">
           <a class="nav-link" href="/profile">Profile</a>
-        </li>
+        </li> -->
 <!--
 
         <li class="nav-item active">
