@@ -6,3 +6,22 @@ body {
 body.bg-dark {
   background-color: #262a2e ! important;
 }
+
+
+.btn.btn-conversation {
+  color: #fff;
+  background-color: var(--bs-orange);
+  border-color: var(--bs-orange);
+}
+
+.btn.btn-interaction {
+  color: #fff;
+  background-color: var(--bs-teal);
+  border-color: var(--bs-teal);
+}
+
+.btn.btn-navigation {
+  color: #fff;
+  background-color: var(--bs-purple);
+  border-color: var(--bs-purple);
+}

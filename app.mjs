@@ -1,51 +1,31 @@
-import { dirname } from 'path';
+import path from 'path';
 import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-
+// TODO: remove pouch dependency
 import PouchDB from 'pouchdb';
 import PouchFind from 'pouchdb-find';
 PouchDB.plugin(PouchFind);
 
+
 import express from 'express';
-import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-
 import helmet from 'helmet';
-
 import session from "express-session";
-
 import createError from 'http-errors';
 import bodyParser from 'body-parser';
-
-
 import PouchSession from "session-pouchdb-store";
 import rateLimit from "express-rate-limit";
 
 
-
-import Cosmopolis from './cosmopolis/Cosmopolis.mjs';
-
-import indexRouter from './routes/index.mjs';
-
-import accountPlugin from './plugins/account/index.mjs';
-// import schoolPlugin from './plugins/school/index.mjs';
-// import groupPlugin from './plugins/group/index.mjs';
-
-import locationPlugin from './plugins/location/index.mjs';
-
 import Models from './models/index.mjs';
 
-// import usersRouter from './routes/users.mjs';
-// import viewRouter from './routes/view.mjs';
-// import editRouter from './routes/edit.mjs';
+import homeApplication from './applications/home/index.mjs';
+import accountApplication from './applications/account/index.mjs';
+import locationApplication from './applications/location/index.mjs';
 
-// import cosmopolis from './middleware/cosmopolis/index.mjs';
-// import databases from './middleware/databases/index.mjs';
-// import friends from './middleware/friends/index.mjs';
-// import users from './middleware/users/index.mjs';
+
 
 
 
@@ -118,13 +98,6 @@ async function main(){
   const models =  await Models();
   app.set('models', models);
 
-  // if(app.get('env') === 'development') console.log('Setting up Cosmopolis...');
-  // app.use(function (req, res, next) {
-  //   req.Cosmopolis = new Cosmopolis({req, res, next, models, development: req.app.get('env') === 'development'});
-  //   next();
-  // })
-
-
 
 
   app.use(logger('dev'));
@@ -137,15 +110,21 @@ async function main(){
 
 
   app.use(function(req, res, next) {
+    console.log('\n\n\n\n$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#\n' + req.url);
+    next();
+  })
+
+  app.use(function(req, res, next) {
+    console.log(req.session);
     res.locals.account = req.session.username?req.session.username:'Anonymous';
     res.locals.account = "XXX";
     next()
   })
 
-  accountPlugin(app);
-  locationPlugin(app);
+  homeApplication(app);
+  accountApplication(app);
+  locationApplication(app);
 
-  app.use('/', indexRouter);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

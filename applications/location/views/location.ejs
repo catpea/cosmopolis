@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <% include common/head %>
+</head>
+
+<body class="bg-dark text-light">
+  <% include common/menu %>
+  <main class="container">
+
+    <div class="row mt-5">
+      <h1 class="display-1"><%= location.name %></h1>
+      <p class="lead"><%= location.description %></p>
+    </div>
+
+    <div class="row">
+    <div class="col text-center text-md-left">
+      <a href="#information" class="btn btn-lg btn-outline-light mb-2">Information</a>
+      <a href="#conversation" class="btn btn-lg btn-outline-light mb-2">Conversation</a>
+      <a href="#interaction" class="btn btn-lg btn-outline-light mb-2">Interaction</a>
+      <a href="#navigation" class="btn btn-lg btn-outline-light mb-2">Navigation</a>
+    </div>
+    </div>
+
+
+    <div class="row mt-5">
+      <a name="information" class="mb-5"></a>
+      <h1 class="display-2">Information</h1>
+    </div>
+
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-md-4 g-4">
+
+      <!-- information card -->
+      <div class="col">
+        <div class="card bg-dark text-light shadow mb-4">
+          <div class="card-body">
+            <h5 class="card-title"><%= location.name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted">Information Card</h6>
+            <p class="card-text"><%= location.description %></p>
+            <a href="#" class="card-link" onclick="history.back()">Back</a>
+          </div>
+        </div>
+      </div>
+      <!-- information card -->
+
+      <!-- membership card -->
+      <div class="col">
+        <div class="card bg-dark text-light shadow mb-4">
+          <div class="card-body">
+            <h5 class="card-title"><%= location.name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted">Membership Card</h6>
+            <p class="card-text"><%= location.description %></p>
+            <% if(location.member){ %>
+            <div class="alert alert-info" role="alert">
+              You are a member of <%= location.name %>.
+            </div>
+            <form action="/location/leave" method="POST">
+              <input name="id" type="hidden" value="<%= location.id %>">
+              <button type="submit" class="btn btn-danger mb-3">Leave <%= location.name %></button>
+            </form>
+            <% } else { %>
+            <form action="/location/join" method="POST">
+              <input name="id" type="hidden" value="<%= location.id %>">
+              <button type="submit" class="btn btn-primary mb-3">Join <%= location.name %></button>
+            </form>
+            <% } %>
+          </div>
+        </div>
+      </div>
+      <!-- membership card -->
+
+      <!-- information card -->
+      <div class="col">
+        <div class="card bg-dark text-light shadow mb-4">
+          <div class="card-body">
+            <form action="/location/create" method="POST">
+              <input name="id" type="hidden" value="<%= location.id %>">
+              <button type="submit" class="btn btn-primary mb-3">Create New</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- information card -->
+
+
+    </div>
+
+    <div class="row mt-5">
+      <a name="conversation" class="mb-5"></a>
+      <h1 class="display-2">Conversation</h1>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-md-4 g-4">
+      <!-- conversation cards -->
+      <% location.locations.forEach(function(location){ %>
+      <div class="col">
+        <div class="card bg-dark text-light shadow mb-4">
+          <h5 class="card-header text-info"><%= location.name %></h5>
+          <div class="card-body">
+            <p><%= location.description %></p>
+          </div>
+          <div class="card-body border-top border-secondary text-right">
+            <a href="/location/<%= location.id %>" class="btn btn-secondary">Inspect <%= location.name %></a>
+          </div>
+        </div>
+      </div>
+      <% }); %>
+      <!-- conversation cards -->
+    </div>
+
+    <div class="row mt-5">
+      <a name="interaction" class="mb-5"></a>
+      <h1 class="display-2">Interaction</h1>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-md-4 g-4">
+
+
+      <% location.things.forEach(function(thing){ %>
+      <!-- thing card -->
+      <div class="col">
+        <div class="card bg-dark text-light shadow mb-4">
+          <h5 class="card-header text-warning"><%= thing.name %></h5>
+          <div class="card-body">
+            <h5 class="card-title"><%= thing.name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted">Thing Card</h6>
+            <p class="card-text"><%= thing.description %></p>
+            <% thing.actions.forEach(function(action){ %>
+            <a href="/location/<%= action.id %>" class="btn btn-secondary">Inspect <%= action.name %></a>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+      <!-- thing card -->
+      <% }); %>
+
+    </div>
+
+    <div class="row mt-5">
+      <a name="navigation" class="mb-5"></a>
+      <h1 class="display-2">Navigation</h1>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-md-4 g-4" style="min-height: 62rem;">
+
+      <!-- location cards -->
+      <% location.locations.forEach(function(location){ %>
+      <div class="col">
+        <div class="card bg-dark text-light shadow mb-4">
+          <h5 class="card-header text-info"><%= location.name %></h5>
+          <div class="card-body">
+            <p><%= location.description %></p>
+          </div>
+          <div class="card-body border-top border-secondary text-right">
+            <a href="/location/<%= location.id %>" class="btn btn-secondary">Inspect <%= location.name %></a>
+          </div>
+        </div>
+      </div>
+      <% }); %>
+      <!-- location cards -->
+
+    </div>
+  </main><!-- /.container -->
+  <% include common/foot %>
+</body>
+
+</html>

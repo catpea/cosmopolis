@@ -311,12 +311,13 @@ async function main(){
       kind: "Structure",
     });
 
+
     const earth = await Location.create({
       creator: 'Root',
       root: true,
 
       name: 'Earth',
-      description: 'Earth',
+      description: 'Earth is the third planet from the Sun and the only astronomical object known to harbor life.',
       website: '',
       updated: new Date(),
 
@@ -335,6 +336,44 @@ async function main(){
       type: "Universe",
       kind: "Structure",
     });
+
+    const michigan = await Location.create({
+      creator: 'Root',
+
+      name: 'Michigan',
+      description: 'State of Michigan',
+      website: '',
+      updated: new Date(),
+
+      type: "Universe",
+      kind: "Structure",
+    });
+
+    const mcrc = await Location.create({
+      creator: 'Root',
+
+      name: 'Michigan Climate Refugee Camp',
+      description: 'United States',
+      website: '',
+      updated: new Date(),
+
+      type: "Universe",
+      kind: "Structure",
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const sovietUnion = await Location.create({
       creator: 'Root',
 
@@ -353,6 +392,8 @@ async function main(){
     await earth.addLink(unitedStates);
     await earth.addLink(sovietUnion);
 
+    await unitedStates.addLink(michigan);
+    await michigan.addLink(mcrc);
 
     const udhr = await Thing.create({
       creator: 'Root',
@@ -365,7 +406,19 @@ async function main(){
       type: "Book",
       kind: "Declaration",
     });
-    const read = await Action.create({
+    const help = await Thing.create({
+      creator: 'Root',
+
+      name: 'System Help Manual',
+      description: `Helpful instructions on how to get around the system.`,
+      website: '',
+      updated: new Date(),
+
+      type: "Book",
+      kind: "Declaration",
+    });
+
+    const read1 = await Action.create({
       creator: 'Root',
 
       name: 'Read',
@@ -376,7 +429,22 @@ async function main(){
       type: "Action",
       kind: "Inspection",
     });
-    await udhr.addAction(read);
+    const read2 = await Action.create({
+      creator: 'Root',
+
+      name: 'Read',
+      description: `Read`,
+      website: '',
+      updated: new Date(),
+
+      type: "Action",
+      kind: "Inspection",
+    });
+
+    await help.addAction(read1);
+    await earth.addThing(help);
+
+    await udhr.addAction(read2);
     await earth.addThing(udhr);
 
 
